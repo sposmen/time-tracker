@@ -5,8 +5,9 @@ class TimeTracksController < ApplicationController
   # GET /time_tracks
   # GET /time_tracks.json
   def index
+    @date = params[:date] && Date.parse(params[:date]) || Date.today
     @time_track = TimeTrack.new
-    @time_tracks = TimeTrack.all
+    @time_tracks = TimeTrack.date(@date).all
   end
 
   def start
@@ -44,7 +45,7 @@ class TimeTracksController < ApplicationController
 
     respond_to do |format|
       if @time_track.save
-        format.html { redirect_to @time_track, notice: 'Time track was successfully created.' }
+        format.html { redirect_to time_tracks_url, notice: 'Time track was successfully created.' }
         format.json { render :show, status: :created, location: @time_track }
       else
         format.html { render :new }
@@ -58,7 +59,7 @@ class TimeTracksController < ApplicationController
   def update
     respond_to do |format|
       if @time_track.update(time_track_params)
-        format.html { redirect_to @time_track, notice: 'Time track was successfully updated.' }
+        format.html { redirect_to time_tracks_url, notice: 'Time track was successfully updated.' }
         format.json { render :show, status: :ok, location: @time_track }
       else
         format.html { render :edit }

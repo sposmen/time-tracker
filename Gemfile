@@ -23,6 +23,7 @@ gem 'jbuilder', '~> 2.7'
 # gem 'bcrypt', '~> 3.1.7'
 
 gem 'bootstrap', '~> 5.0.0.alpha3'
+gem 'bootstrap-icons-helper'
 gem 'jquery-rails'
 
 # Use Active Storage variant
