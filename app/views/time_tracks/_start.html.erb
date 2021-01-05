@@ -1,0 +1,15 @@
+<%= form_with(
+      model: time_track,
+      url: start_time_tracks_path(time_track),
+      method: :post,
+      class: 'row row-cols-lg-auto g-3'
+    ) do |form| %>
+  <div class="col-auto">
+    <div class="input-group">
+      <%= form.text_field :description, autocomplete: "off", class: "form-control", placeholder: "Description" %>
+    </div>
+  </div>
+  <div class="col-auto">
+    <%= form.button 'Start', type: :submit, class: "btn btn-primary" %>
+  </div>
+<% end %>

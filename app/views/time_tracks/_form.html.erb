@@ -1,0 +1,30 @@
+<%= form_with(model: time_track) do |form| %>
+  <% if time_track.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(time_track.errors.count, "error") %> prohibited this time_track from being saved:</h2>
+
+      <ul>
+        <% time_track.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="mb-3">
+    <%= form.label :description, class: 'form-label' %>
+    <%= form.text_field :description, class: "form-control" %>
+  </div>
+
+  <div class="mb-3">
+    <%= form.label :start_at, class: 'form-label' %>
+    <%= form.text_field :start_at, class: "form-control" %>
+  </div>
+
+  <div class="mb-3">
+    <%= form.label :end_at, class: 'form-label' %>
+    <%= form.text_field :end_at, class: "form-control" %>
+  </div>
+
+  <%= form.button 'Update Time', type: :submit, class: "btn btn-primary" %>
+<% end %>

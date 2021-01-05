@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Description:</strong>
+  <%= @time_track.description %>
+</p>
+
+<p>
+  <strong>Start at:</strong>
+  <%= @time_track.start_at %>
+</p>
+
+<p>
+  <strong>End at:</strong>
+  <%= @time_track.end_at %>
+</p>
+
+<%= link_to 'Edit', edit_time_track_path(@time_track) %> |
+<%= link_to 'Back', time_tracks_path %>
