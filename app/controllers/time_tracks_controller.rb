@@ -5,9 +5,11 @@ class TimeTracksController < ApplicationController
   # GET /time_tracks
   # GET /time_tracks.json
   def index
-    @date = params[:date] && Date.parse(params[:date]) || Date.today
     @time_track = TimeTrack.new
+    @date = params[:date] && Date.parse(params[:date]) || Date.today
     @time_tracks = TimeTrack.date(@date).all
+
+    render partial: 'table' if params[:refresh]
   end
 
   def start
