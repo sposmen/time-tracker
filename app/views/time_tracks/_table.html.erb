@@ -19,7 +19,7 @@
       <td><%= time_track.description %></td>
       <td><%= time_tag(time_track.start_at, format: '%I:%M%p') %></td>
       <td><%= time_tag(time_track.end_at, format: '%I:%M%p') if time_track.end_at %></td>
-      <td><%= (current_time / (3600)).round(2) %></td>
+      <td class="text-right"><%= Time.at(current_time).utc.strftime("%H:%M:%S") %></td>
       <td>
         <%= link_to 'Edit', edit_time_track_path(time_track), class: 'btn btn-secondary btn-sm' %>
         <% if !time_track.end_at.nil? %>
@@ -33,7 +33,9 @@
   <% end %>
   <tr>
     <th colspan="3">Total Time</th>
-    <th><%= (total_time / (3600)).round(2) %> Hours</th>
+    <th>
+      <%= Time.at(total_time).utc.strftime("%H:%M:%S") %>(<small><%= (total_time / (3600)).round(2) %></small>)
+    </th>
     <th></th>
   </tr>
 </table>

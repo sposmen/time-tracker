@@ -1,4 +1,4 @@
-const TIME_TRACK_REFRESH = 5 * 1000
+const TIME_TRACK_REFRESH = 60 * 1000
 
 let loaded = false
 

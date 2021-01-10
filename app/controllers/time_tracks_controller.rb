@@ -6,7 +6,7 @@ class TimeTracksController < ApplicationController
   # GET /time_tracks.json
   def index
     @time_track = TimeTrack.new
-    @date = params[:date] && Date.parse(params[:date]) || Date.today
+    @date = params[:date] && Time.zone.parse(params[:date]).utc || Time.zone.now.beginning_of_day.utc
     @time_tracks = TimeTrack.date(@date).all
 
     render partial: 'table' if params[:refresh]

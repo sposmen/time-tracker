@@ -1,6 +1,6 @@
 <div class="col-auto">
-  <%= link_to bootstrap_icon("arrow-left-square-fill", width: 32, height: 32), events_date_time_tracks_path(date: @date - 1.day) %>
+  <%= link_to bootstrap_icon("arrow-left-square-fill", width: 32, height: 32), events_date_time_tracks_path(date: @date.to_date - 1.day) %>
   <%= link_to bootstrap_icon("house-fill", width: 32, height: 32), time_tracks_path %>
   <%#= bootstrap_icon "calendar-date-fill", width: 32, height: 32 %>
-  <%= link_to bootstrap_icon("arrow-right-square-fill", width: 32, height: 32), events_date_time_tracks_path(date: @date + 1.day) %>
+  <%= link_to bootstrap_icon("arrow-right-square-fill", width: 32, height: 32), events_date_time_tracks_path(date: @date.to_date + 1.day) %>
 </div>
