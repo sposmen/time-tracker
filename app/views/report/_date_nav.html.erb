@@ -3,4 +3,5 @@
   <%= link_to bootstrap_icon("house-fill", width: 32, height: 32), report_date_report_index_path %>
   <%#= bootstrap_icon "calendar-date-fill", width: 32, height: 32 %>
   <%= link_to bootstrap_icon("arrow-right-square-fill", width: 32, height: 32), report_date_report_index_path(date: @date.to_date + 1.month) %>
+  <%= link_to bootstrap_icon("cloud-download-fill", width: 32, height: 32), report_date_report_index_path(date: @date.to_date, format: :xlsx) %>
 </div>

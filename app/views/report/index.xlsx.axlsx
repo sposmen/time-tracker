@@ -1,0 +1,54 @@
+workbook = xlsx_package.workbook
+title_style = workbook.styles.add_style(b: true, sz: 12, alignment: { horizontal: :center })
+date_style = workbook.styles.add_style(format_code: 'yyyy-mm-dd', bg_color: 'dbdbdb')
+hour_style = workbook.styles.add_style(format_code: 'hh:mm')
+number_format = workbook.styles.add_style(format_code: '#.#0')
+currency_format = workbook.styles.add_style(format_code: '$#.#0')
+summary_style = [nil, nil, currency_format, number_format]
+total_currency_format = workbook.styles.add_style(format_code: '$#.#0', b: true, sz: 12)
+total_summary_style = [title_style, nil, total_currency_format, total_currency_format]
+
+workbook.add_worksheet(name: 'Time Sheet') do |sheet|
+  sheet.add_row ['Description', 'Start at', 'End at', 'Current time'], style: [title_style, title_style, title_style, title_style]
+  current_hourly_rate = (ENV.fetch('CURRENT_HOURLY_RATE') { '10' }).to_i
+  current_date = nil
+  total_date_time = 0.seconds
+  total_time = 0.seconds
+  @time_tracks.each do |time_track|
+    current_time = (time_track.end_at || Time.current) - time_track.start_at
+    total_time += current_time
+    if current_date && current_date < time_track.start_at&.to_date
+      time_set = total_date_time
+      total_date_time = current_time
+
+      sheet.add_row [nil, nil, (current_hourly_rate * time_set / 3600), (time_set / 3600)], style: summary_style
+    else
+      total_date_time += current_time
+    end
+
+    if !current_date || current_date < time_track.start_at&.to_date
+      current_date = time_track.start_at&.to_date
+
+      sheet.add_row [current_date, nil, nil, nil], style: [date_style, date_style, date_style, date_style]
+    end
+
+    sheet.add_row(
+      [
+        time_track.description,
+        time_track.start_at,
+        time_track.end_at,
+        Time.at(current_time).utc
+      ],
+      style: [nil, hour_style, hour_style, hour_style]
+    )
+  end
+
+  if current_date
+    time_set = total_date_time
+    sheet.add_row [nil, nil, ((current_hourly_rate * time_set) / 3600), (time_set / 3600)], style: summary_style
+  end
+
+  sheet.add_row ['Total', nil, ((current_hourly_rate * total_time) / 3600), (total_time / 3600)], style: total_summary_style
+  sheet.column_widths 70, 10, 10, 13
+end
+

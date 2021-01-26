@@ -24,10 +24,10 @@
       <tr>
         <th colspan="2"></th>
         <th>
-          $ <%= (current_hourly_rate * time_set / (3600)).round(2) %>
+          $ <%= (current_hourly_rate * time_set / 3600).round(2) %>
         </th>
         <th>
-          <%= (time_set / (3600)).round(3) %>
+          <%= (time_set / 3600).round(3) %>
         </th>
       </tr>
     <% else
@@ -55,20 +55,20 @@
     <tr>
       <th colspan="2"></th>
       <th>
-        $ <%= (current_hourly_rate * time_set / (3600)).round(2) %>
+        $ <%= (current_hourly_rate * time_set / 3600).round(2) %>
       </th>
       <th>
-        <%= (time_set / (3600)).round(3) %>
+        <%= (time_set / 3600).round(3) %>
       </th>
     </tr>
   <% end %>
   <tr>
     <th colspan="2">Total</th>
     <th>
-      $ <%= current_hourly_rate * (total_time / (3600).round(3)) %>
+      $ <%= (current_hourly_rate * total_time / 3600).round(3) %>
     </th>
     <th>
-      <%= (total_time / (3600)).round(3) %>
+      <%= (total_time / 3600).round(3) %>
     </th>
   </tr>
 </table>
