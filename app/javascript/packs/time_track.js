@@ -2,7 +2,7 @@ const TIME_TRACK_REFRESH = 60 * 1000
 
 let loaded = false
 
-replaceContent = () => {
+let replaceContent = () => {
   loaded = true
   $.get(location.toString(), {refresh: true}).done(
     (data) => {
