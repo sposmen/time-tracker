@@ -48,7 +48,7 @@ workbook.add_worksheet(name: 'Time Sheet') do |sheet|
     sheet.add_row [nil, nil, ((current_hourly_rate * time_set) / 3600), (time_set / 3600)], style: summary_style
   end
 
-  sheet.add_row ['Total', nil, ((current_hourly_rate * total_time) / 3600), (total_time / 3600)], style: total_summary_style
+  sheet.add_row ['Total', nil, current_hourly_rate * (total_time / 3600).round(2), (total_time / 3600).round(2)], style: total_summary_style
   sheet.column_widths 70, 10, 10, 13
 end
 
