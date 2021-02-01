@@ -21,13 +21,13 @@
       <td><%= time_tag(time_track.end_at, format: '%I:%M%p') if time_track.end_at %></td>
       <td class="text-right"><%= Time.at(current_time).utc.strftime("%H:%M:%S") %></td>
       <td>
-        <%= link_to 'Edit', edit_time_track_path(time_track), class: 'btn btn-secondary btn-sm' %>
+        <%= link_to bootstrap_icon("pencil-square", width: 20, height: 20), edit_time_track_path(time_track), class: 'btn btn-secondary btn-sm' %>
         <% if !time_track.end_at.nil? %>
-          <%= link_to 'Duplicate', time_track_duplicate_path(time_track), class: 'btn btn-warning btn-sm' %>
+          <%= link_to link_to bootstrap_icon("files", width: 20, height: 20), time_track_duplicate_path(time_track), class: 'btn btn-warning btn-sm' %>
         <% else %>
-          <%= link_to 'Stop', time_track_stop_path(time_track), class: 'btn btn-danger btn-sm' %>
+          <%= link_to link_to bootstrap_icon("stop-circle", width: 20, height: 20), time_track_stop_path(time_track), class: 'btn btn-danger btn-sm' %>
         <% end %>
-        <%= link_to 'Destroy', time_track, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-dark btn-sm' %>
+        <%= link_to link_to bootstrap_icon("file-earmark-minus", width: 20, height: 20), time_track, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-dark btn-sm' %>
       </td>
     </tr>
   <% end %>
