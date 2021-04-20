@@ -1,0 +1,30 @@
+<h1>Search</h1>
+<%= form_with url: search_index_path,method: :get  do |form| %>
+<div class="row">
+  <div class="col-auto">
+    <%= form.datetime_field :start_at, class: "form-control", value: @start_at.in_time_zone.strftime("%Y-%m-%dT%T") %>
+  </div>
+  <div class="col-auto">
+    <%= form.datetime_field :end_at, class: "form-control", value: @end_at.in_time_zone.strftime("%Y-%m-%dT%T") %>
+  </div>
+  <div class="col-auto">
+    <%= form.text_field :q, class: "form-control", value: @q %>
+  </div>
+  <div class="col-auto">
+    <%= form.button 'Search', type: :submit, class: "btn btn-primary", value: @q %>
+  </div>
+  <div class="col-auto">
+    <%= link_to bootstrap_icon("cloud-download-fill", width: 32, height: 32),
+                search_index_path(
+                  start_at: @start_at,
+                  end_at: @end_at,
+                  q: @q,
+                  format: :xlsx
+                ) %>
+  </div>
+</div>
+<% end %>
+
+<div id="reportTableContainer" class="table-responsive">
+  <%= render 'table' %>
+</div>

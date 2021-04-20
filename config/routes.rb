@@ -12,4 +12,5 @@ Rails.application.routes.draw do
       get '(:date)', action: :index, constraints: { date: /\d{4}-\d{2}-\d{2}/ }, as: :report_date
     end
   end
+  resources :search, only: [:index]
 end

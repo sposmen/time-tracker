@@ -1,0 +1,74 @@
+<table class="table table-striped">
+  <thead>
+  <tr>
+    <th>Description</th>
+    <th>Start at</th>
+    <th>End at</th>
+    <th>Current time</th>
+  </tr>
+  </thead>
+
+  <%
+    current_hourly_rate = (ENV.fetch('CURRENT_HOURLY_RATE') { '10' }).to_i
+    current_date = nil
+    total_date_time = 0.seconds
+    total_time = 0.seconds
+    @time_tracks.each do |time_track|
+      current_time = (time_track.end_at || Time.current) - time_track.start_at
+      total_time += current_time
+  %>
+    <% if current_date && current_date < time_track.start_at&.to_date
+         time_set = total_date_time
+         total_date_time = current_time
+    %>
+      <tr>
+        <th colspan="2"></th>
+        <th>
+          $ <%= (current_hourly_rate * time_set / 3600).round(2) %>
+        </th>
+        <th>
+          <%= (time_set / 3600).round(3) %>
+        </th>
+      </tr>
+    <% else
+         total_date_time += current_time
+    %>
+    <% end %>
+
+    <% if !current_date || current_date < time_track.start_at&.to_date
+         current_date = time_track.start_at&.to_date
+    %>
+      <tr>
+        <th colspan="4"><%= time_tag(current_date, format: '%F') %></th>
+      </tr>
+    <% end %>
+    <tr>
+      <td><%= time_track.description %></td>
+      <td><%= time_tag(time_track.start_at, format: '%I:%M%p') %></td>
+      <td><%= time_tag(time_track.end_at, format: '%I:%M%p') if time_track.end_at %></td>
+      <td><%= Time.at(current_time).utc.strftime("%H:%M:%S") %></td>
+    </tr>
+  <% end %>
+  <% if current_date
+       time_set = total_date_time
+  %>
+    <tr>
+      <th colspan="2"></th>
+      <th>
+        $ <%= (current_hourly_rate * time_set / 3600).round(2) %>
+      </th>
+      <th>
+        <%= (time_set / 3600).round(3) %>
+      </th>
+    </tr>
+  <% end %>
+  <tr>
+    <th colspan="2">Total</th>
+    <th>
+      $ <%= current_hourly_rate * (total_time / 3600).round(2) %>
+    </th>
+    <th>
+      <%= (total_time / 3600).round(2) %>
+    </th>
+  </tr>
+</table>
